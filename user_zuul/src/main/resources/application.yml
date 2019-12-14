@@ -3,12 +3,18 @@ server:
 spring:
   application:
     name: api-gateway #指定服务名
+  http:    #过滤器中文乱码问题
+    encoding:
+      charset: gbk    #声明编码格式
+      enabled: true     #启动编码
+      force: true       #强制编码
+
+
+# user-service为路由名称，可以随便写，但是一般为了方便建议写提供服务的名称,方便简写，service-provide可以随便写，为了规范建议写service-provide,prefix为路由前缀可以不写，为了正规，建议写
 zuul:
   routes:
-    user-service:                     # 这里是路由id，随意写
-      path: /user-service/**         # 这里是映射路径
-      serviceId: user-service # 指定服务名称
-#      url: http://127.0.0.1:8081    # 映射路径对应的实际url地址
+    user-service: /service-provide/**
+  prefix: api
 eureka:
   client:
     service-url:
@@ -16,3 +22,7 @@ eureka:
   instance:
     prefer-ip-address: true
     ip-address: 127.0.0.1
+
+
+
+

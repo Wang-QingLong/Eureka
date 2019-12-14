@@ -105,7 +105,7 @@ zuul
 		zuul.routes.<路由名称>.path=/service-provider/**
 		zuul.routes.<路由名称>.serviceId=service-provider
 
-		zuul.routes.服务名=/service-provider/**   *******************
+		zuul.routes.服务名=/service-provider/**   推荐这种  service-provider也可以换成其他的名字
 
 		不用配置，默认就是服务id开头路径
 
@@ -118,6 +118,42 @@ zuul
 			filterOrder：返回值越小优先级越高
 			shouldFilter：是否执行run方法。true执行
 			run：具体的拦截逻辑
+
+	   如果想过滤器返回的是中文，就在yml配置里面配置编码格式
+
+	   http:    #过滤器中文乱码问题
+           encoding:
+             charset: gbk    #声明编码格式
+             enabled: true     #启动编码
+             force: true       #强制编码
+
+
+
+eg：下面是run方法，其他方法看案列
+
+   public Object run() throws ZuulException {
+          //初始化context 上下文对象，servlet spring
+          RequestContext currentContext = RequestContext.getCurrentContext();
+
+          //获取request对象
+          HttpServletRequest request = currentContext.getRequest();
+
+          //获取参数
+          String token = request.getParameter("token");
+
+          if (StringUtils.isBlank(token)) {
+              //拦截，不转发请求
+              currentContext.setSendZuulResponse(false);
+              //响应状态码，401-身份未认证
+              currentContext.setResponseStatusCode(HttpStatus.SC_UNAUTHORIZED);
+              currentContext.setResponseBody("李斌狗贼，哪里逃，休走...");
+          }
+
+          //返回null,就代表过滤器啥都不做
+          return null;
+      }
+
+
 
 
 
