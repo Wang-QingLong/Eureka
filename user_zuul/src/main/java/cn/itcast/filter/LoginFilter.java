@@ -5,6 +5,7 @@ import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
+import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,7 @@ public class LoginFilter extends ZuulFilter {
      */
     @Override
     public String filterType() {
-        return "pre";
+        return FilterConstants.PRE_TYPE;
     }
 
     /**
@@ -36,7 +37,7 @@ public class LoginFilter extends ZuulFilter {
      */
     @Override
     public int filterOrder() {
-        return 10;
+        return FilterConstants.PRE_DECORATION_FILTER_ORDER;
     }
 
     /**

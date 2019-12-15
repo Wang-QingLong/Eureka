@@ -10,11 +10,13 @@ spring:
       force: true       #强制编码
 
 
-# user-service为路由名称，可以随便写，但是一般为了方便建议写提供服务的名称,方便简写，service-provide可以随便写，为了规范建议写service-provide,prefix为路由前缀可以不写，为了正规，建议写
+# user-service为路由名称，可以随便写，但是一般为了方便建议写提供服务的名称,因为value表示拦截路径，如果key表示转发的服务的Id,value可以不写，默认就是key的值，所以当写了service-provide（service-provide可以随便写）之后，会存在2个拦截地址，一个是user-service，一个是service-provide，所以加上下面的路由忽略，为了规范建议写service-provide,prefix为路由前缀可以不写，为了正规，建议写
 zuul:
   routes:
     user-service: /service-provide/**
   prefix: api
+  ignored-services:    #设置服务路由的忽略
+    - user-service
 eureka:
   client:
     service-url:

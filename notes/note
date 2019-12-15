@@ -99,14 +99,19 @@ feign
 zuul
 	1.引入zuul的启动器
 	2.配置：
+	--
 		zuul.routes.<路由名称>.path=/service-provider/**
 		zuul.routes.<路由名称>.url=http://localhost:8082
-
+    --
 		zuul.routes.<路由名称>.path=/service-provider/**
 		zuul.routes.<路由名称>.serviceId=service-provider
-
-		zuul.routes.服务名=/service-provider/**   推荐这种  service-provider也可以换成其他的名字
-
+    --
+		zuul.routes.服务名=/service-provider/**   推荐这种  service-provider也可以换成其他的名字,
+		如果(路由名称等于服务名称)zuul.routes.service-provider=/user/**  表示存在2个拦截路径，一个是service-provider
+		另外一个是user ,这个时候可以设置服务路由的忽略
+		zuul.ignored-services:
+		   - user-service
+    --
 		不用配置，默认就是服务id开头路径
 
 	3.@EnableZuulProxy
