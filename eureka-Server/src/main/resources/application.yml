@@ -12,3 +12,4 @@ eureka:
   server:
     enable-self-preservation: false  # 关闭自我保护模式（缺省为打开）
     eviction-interval-timer-in-ms: 1000 # 剔除无效连接的间隔时间
+
