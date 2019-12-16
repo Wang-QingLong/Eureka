@@ -14,7 +14,7 @@ spring:
 zuul:
   routes:
     user-service: /service-provide/**
-  prefix: api
+  prefix: /api
   ignored-services:    #设置服务路由的忽略
     - user-service
 eureka:
